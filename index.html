@@ -3,16 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Stock Charts</title>
+    <title>Open Multiple Stock Charts</title>
 </head>
 <body>
     <h1>Opening Stock Charts</h1>
-    <p>Your charts will open automatically.</p>
+    <p>Your stock charts will open automatically in new tabs or windows.</p>
     <script>
-        // Open the first chart on the left
-        var win1 = window.open('https://www.google.com/finance/quote/GOOGL:NASDAQ?window=1Y', '_blank', 'width=800,height=1000,top=0,left=0');
-        // Open the second chart on the right
-        var win2 = window.open('https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ?window=1Y', '_blank', 'width=800,height=1000,top=0,left=810');
+        // List of stock chart URLs
+        const urls = [
+            'https://www.google.com/finance/quote/GOOGL:NASDAQ?window=1Y',
+            'https://www.google.com/finance/quote/ANZ:ASX?window=1Y',
+            'https://www.google.com/finance/quote/CBA:ASX?window=1Y',
+            'https://www.google.com/finance/quote/LMT:NYSE?window=1Y',
+            'https://www.google.com/finance/quote/NVDA:NASDAQ?window=1Y',
+            'https://www.google.com/finance/quote/.INX:INDEXSP?window=1Y',
+            'https://www.google.com/finance/quote/AAPL:NASDAQ?window=1Y',
+            'https://www.google.com/finance/quote/.DJI:INDEXDJX?window=1Y',
+            'https://www.google.com/finance/quote/CSL:ASX?window=1Y',
+            'https://www.google.com/finance/quote/BHP:ASX?window=1Y',
+            'https://www.google.com/finance/quote/MSFT:NASDAQ?window=1Y',
+            'https://www.google.com/finance/quote/MGR:ASX?window=1Y',
+            'https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ?window=1Y'
+        ];
+
+        // Dimensions for positioning windows
+        const windowWidth = 800; // Adjust width as needed
+        const windowHeight = 1000; // Adjust height as needed
+        let leftPosition = 0; // Initial left position
+        let topPosition = 0; // Initial top position
+
+        // Open each URL in a new window or tab
+        urls.forEach((url, index) => {
+            window.open(url, '_blank', `width=${windowWidth},height=${windowHeight},top=${topPosition},left=${leftPosition}`);
+            // Update positions for cascading windows
+            leftPosition += windowWidth + 10; // Add a gap between windows
+            if (leftPosition + windowWidth > screen.availWidth) { 
+                // If the next window exceeds screen width, move to the next row
+                leftPosition = 0;
+                topPosition += windowHeight + 10; // Add a gap for the next row
+            }
+        });
     </script>
 </body>
 </html>
